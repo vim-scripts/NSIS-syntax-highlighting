@@ -2,8 +2,8 @@
 " Language:	NSIS script, for version of NSIS 2.45 and later
 " Maintainer:	Alex Jakushev <Alex.Jakushev@kemek.lt>
 " Maintainer:	Chris Morgan <chris.morganiser@gmail.com>
-" Last Change:	2009 November 22
-" Version:      2.45-1
+" Last Change:	2009 November 23
+" Version:      2.45-2
 
 " For version 5.x: Clear all syntax items
 " For version 6.x: Quit when a syntax file was already loaded
@@ -320,6 +320,7 @@ if version >= 508 || !exists("did_nsis_syn_inits")
   HiLink nsisVarCommand			Type
   HiLink nsisUserVar			Identifier
   HiLink nsisSysVar				Identifier
+  HiLink nsisConstVar			Identifier
   HiLink nsisAttribute			Type
   HiLink nsisCompiler			Type
   HiLink nsisVersionInfo		Type
