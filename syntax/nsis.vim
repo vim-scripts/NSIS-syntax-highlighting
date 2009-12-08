@@ -1,9 +1,18 @@
 " Vim syntax file
-" Language:	NSIS script, for version of NSIS 2.45 and later
-" Maintainer:	Alex Jakushev <Alex.Jakushev@kemek.lt>
+" Language:		NSIS 2.45 script
 " Maintainer:	Chris Morgan <chris.morganiser@gmail.com>
-" Last Change:	2009 November 23
-" Version:      2.45-2
+" Last Change:	2009 December 8
+" Version:      2.45-3
+" Changelog:
+ " 2.45-1:
+     " updated to NSIS 2.45
+ " 2.45-2:
+     " fixed missing colouring of nsisConstVar
+ " 2.45-3:
+     " fixed ; or # comment characters at end of line making the next line a comment
+     " fixed ${|} and ${||} LogicLib highlighting
+     " changed nsisTodo list's contents and added it and @Spell to a new nsisCommentGroup
+
 
 " For version 5.x: Clear all syntax items
 " For version 6.x: Quit when a syntax file was already loaded
@@ -18,13 +27,16 @@ syn case ignore
 
 "Scripting Reference: (4)
 "Comments: (4.1.2)
-syn keyword nsisTodo	todo attention note fixme readme
+syn keyword nsisTodo	TODO FIXME XXX
+syn cluster nsisCommentGroup contains=nsisTodo
+if !exists("g:nsis_no_spell_comments")
+ syn cluster nsisCommentGroup add=@Spell
+endif
+
 " The next two lines are because a single ; or # at the end must be caught and I'm not sure if it can be done otherwise.
-syn region nsisComment	start=";$"  end="" contains=nsisTodo
-syn region nsisComment	start="#$"  end="" contains=nsisTodo
-syn region nsisComment	start=";"  end="[^\\]$" contains=nsisTodo
-syn region nsisComment	start="#"  end="[^\\]$" contains=nsisTodo
-syn region nsisComment	start="/\*" end="\*/" contains=nsisTodo
+syn region nsisComment  start="[;#]" skip="\\\s*$" end="$"   contains=@nsisCommentGroup nextgroup=@nsisCommandGlobal
+syn region nsisComment  start="/\*"                end="\*/" contains=@nsisCommentGroup nextgroup=@nsisCommandGlobal containedin=ALLBUT,nsisString,nsisComment
+
 "Plugins: (4.1.3)
 syn match nsisPluginCall	"^\s*\S\{-}::\S\+"
 "Strings: (4.1.5)
@@ -286,7 +298,8 @@ syn match nsisLangSubst "$(.\{-})"
 "Other Additions:
 
 "LogicLib Definitions:
-syn keyword nsisLogicLibKeyword	contained \| \|\| Abort Errors FileExists RebootFlag Silent Cmd SectionIsSelected SectionIsSubSection SectionIsSubSectionEnd SectionIsSectionGroup SectionIsSectionGroupEnd SectionIsBold SectionIsReadOnly SectionIsExpanded SectionIsPartiallySelected IfCmd If Unless IfNot AndIf AndUnless AndIfNot OrIf OrUnless OrIfNot Else ElseIf ElseUnless ElseIfNot EndIf EndUnless IfThen IfNotThen ForEach For ExitFor Next While ExitWhile EndWhile Do DoWhile DoUntil ExitDo Loop LoopWhile LoopUntil Continue Break Select CaseElse Case_Else Default Case Case2 Case3 Case4 Case5 EndSelect Switch EndSwitch
+syn keyword nsisLogicLibKeyword	contained Abort Errors FileExists RebootFlag Silent Cmd SectionIsSelected SectionIsSubSection SectionIsSubSectionEnd SectionIsSectionGroup SectionIsSectionGroupEnd SectionIsBold SectionIsReadOnly SectionIsExpanded SectionIsPartiallySelected IfCmd If Unless IfNot AndIf AndUnless AndIfNot OrIf OrUnless OrIfNot Else ElseIf ElseUnless ElseIfNot EndIf EndUnless IfThen IfNotThen ForEach For ExitFor Next While ExitWhile EndWhile Do DoWhile DoUntil ExitDo Loop LoopWhile LoopUntil Continue Break Select CaseElse Case_Else Default Case Case2 Case3 Case4 Case5 EndSelect Switch EndSwitch
+syn match nsisLogicLibKeyword contained /||\?/
 
 
 " Define the default highlighting.
