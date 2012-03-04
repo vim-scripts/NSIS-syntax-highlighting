@@ -1,6 +1,6 @@
 This is a mirror of http://www.vim.org/scripts/script.php?script_id=2864
 
-This is a new syntax file for NSIS 2.45, properly documented as to where in the user manual each keyword comes from as well.  It was based originally on nsis.vim from Vim 7.2 (last edited 12 May 2004), and all keywords were refreshed from the 2.45 user manual.
+This is a new syntax file for NSIS 2.46, properly documented as to where in the user manual each keyword comes from as well.  It was based originally on nsis.vim from Vim 7.2 (last edited 12 May 2004), and all keywords were refreshed from the 2.46 user manual.
 
 All new NSIS syntax is properly supported and highlighted.
 
