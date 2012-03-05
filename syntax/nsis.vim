@@ -2,7 +2,7 @@
 " Language:    NSIS 2.46 script
 " Maintainer:  Chris Morgan <me@chrismorgan.info>
 " Last Change: 2012 March 5
-" Version:     2.46-1
+" Version:     2.46-2
 " Changelog:
  " 2.45-1:
      " updated to NSIS 2.45
@@ -24,6 +24,8 @@
          " FileWriteWord, FileWriteUTF16LE
          " FindProc
      " added MB_USERICON to MessageBox parameters
+ " 2.46-2:
+     " highlight $\' and $\` as well as $\"
 
 
 " For version 5.x: Clear all syntax items
@@ -72,6 +74,8 @@ syn cluster nsisString contains=nsisString,nsisInstructionString,nsisInstruction
 syn match nsisTrailingError contained /\S.*/ skipwhite contains=nsisComment nextgroup=nsisComment
 " TODO contained for all nsisString
 syn match nsisConstVar	"$\\\""
+syn match nsisConstVar	"$\\\'"
+syn match nsisConstVar	"$\\\`"
 
 "Numbers: (4.1.6)
 syn match nsisNumber		"\s[1-9]\d*\ze\%(\s\|[;#]\|$\)"ms=s+1 " decimal
